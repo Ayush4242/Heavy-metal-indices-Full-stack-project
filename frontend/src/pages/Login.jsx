@@ -27,10 +27,9 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        payload
-      );
-
+  "https://your-backend-name.onrender.com/api/auth/login",
+  payload
+);
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (error) {

@@ -46,9 +46,12 @@ const QuizResults = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:5000/api/quiz/my-results", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const res = await axios.get(
+  "https://heavy-metal-indices-api.onrender.com/api/quiz/my-results",
+  {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+);
 
         if (res.data && res.data.length > 0) {
           setQuizResult(normalizeResult(res.data[0]));

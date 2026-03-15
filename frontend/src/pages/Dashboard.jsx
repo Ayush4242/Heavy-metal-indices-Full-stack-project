@@ -679,9 +679,13 @@ const Dashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/pollution/add", formData, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await axios.post(
+  "https://heavy-metal-backend-ayush.onrender.com/api/pollution/add",
+  formData,
+  {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+);
       alert("✅ Pollution data saved successfully");
       setFormData({ location: "", metal: "", concentration: "", permissibleLimit: "" });
       fetchPollutionData();

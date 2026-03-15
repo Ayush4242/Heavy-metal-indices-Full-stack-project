@@ -32,9 +32,9 @@ const Register = () => {
       setLoading(true);
 
       await axios.post(
-        "http://localhost:5000/api/auth/register",
-        formData
-      );
+  "https://heavy-metal-indices-api.onrender.com/api/auth/register",
+  formData
+);
 
       alert("Registration successful");
       navigate("/login");

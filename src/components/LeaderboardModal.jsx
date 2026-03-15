@@ -7,10 +7,11 @@ const LeaderboardModal = ({ show, onClose, token }) => {
   useEffect(() => {
     if (show) {
       axios
-        .get("http://localhost:5000/api/quiz/leaderboard", {
+        .get("https://heavy-metal-backend-ayush.onrender.com/api/quiz/leaderboard", {
           headers: { Authorization: `Bearer ${token}` },
         })
-        .then((res) => setBoard(res.data));
+        .then((res) => setBoard(res.data))
+        .catch((err) => console.error(err));
     }
   }, [show, token]);
 

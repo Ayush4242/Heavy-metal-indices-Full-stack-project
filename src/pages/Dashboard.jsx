@@ -332,9 +332,12 @@ const Dashboard = () => {
     const loadQuizQuestions = async () => {
       try {
         setLoadingQuiz(true);
-        const res = await axios.get("http://localhost:5000/api/quiz/questions", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+const res = await axios.get(
+  "https://your-backend-name.onrender.com/api/quiz/questions",
+  {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+);
         setQuizQuestions(res.data);
         setQuizAnswers(new Array(res.data.length).fill(""));
       } catch (err) {
@@ -356,10 +359,10 @@ const Dashboard = () => {
       try {
         setLoadingQuiz(true);
         const res = await axios.post(
-          "http://localhost:5000/api/quiz/submit",
-          { answers: quizAnswers },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+  "https://heavy-metal-backend-ayush.onrender.com/api/quiz/submit",
+  { answers: quizAnswers },
+  { headers: { Authorization: `Bearer ${token}` } }
+);
         const result = res.data.result;
         const percentage = Number(result.percentage);
         const date = result.date || result.createdAt;
@@ -619,9 +622,12 @@ const Dashboard = () => {
   // YOUR ORIGINAL fetch functions - UPDATED to calculate status
   const fetchPollutionData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/pollution/my", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+  "https://heavy-metal-backend-ayush.onrender.com/api/pollution/my",
+  {
+    headers: { Authorization: `Bearer ${token}` },
+  }
+);
       const data = res.data.records || [];
       setPollutionData(data);
       setPredictions(res.data.predictions || {});
@@ -636,9 +642,12 @@ const Dashboard = () => {
 
   const fetchLocationPLI = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/pollution/location-pli", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await axios.get(
+  "https://heavy-metal-indices-api.onrender.com/api/pollution/location-pli",
+  {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+);
       setLocationPLI(res.data || []);
     } catch (error) {
       console.error("Location PLI fetch failed", error);
@@ -647,9 +656,12 @@ const Dashboard = () => {
 
   const fetchQuizLeaderboard = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/quiz/leaderboard", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await axios.get(
+  "https://heavy-metal-backend-ayush.onrender.com/api/quiz/leaderboard",
+  {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+);
       setQuizLeaderboard(res.data || []);
     } catch (error) {
       console.error("Failed to fetch leaderboard");
@@ -676,9 +688,13 @@ const Dashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/pollution/add", formData, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await axios.post(
+  "https://heavy-metal-backend-ayush.onrender.com/api/pollution/add",
+  formData,
+  {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+);
       alert("✅ Pollution data saved successfully");
       setFormData({ location: "", metal: "", concentration: "", permissibleLimit: "" });
       fetchPollutionData();

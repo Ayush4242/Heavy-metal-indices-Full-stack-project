@@ -27,9 +27,10 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-  "https://your-backend-name.onrender.com/api/auth/login",
+  "https://heavy-metal-indices-api.onrender.com/api/auth/login",
   payload
 );
+
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (error) {

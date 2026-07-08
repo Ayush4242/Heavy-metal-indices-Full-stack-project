@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,13 +17,12 @@ const Register = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrorMsg(""); g
+    setErrorMsg("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
     if (formData.password.length < 6) {
       setErrorMsg("Password must be at least 6 characters");
       return;
@@ -31,9 +31,9 @@ const Register = () => {
     try {
       setLoading(true);
 
-     await axios.post(
-  import.meta.env.VITE_API_URL + "/api/auth/register",
-  formData
+      await axios.post(
+        `${API_BASE_URL}/api/auth/register`,
+        formData
       );
 
       alert("Registration successful");

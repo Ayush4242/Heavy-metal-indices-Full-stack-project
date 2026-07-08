@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -332,7 +333,7 @@ const Dashboard = () => {
     const loadQuizQuestions = async () => {
       try {
         setLoadingQuiz(true);
-        const res = await axios.get(import.meta.env.VITE_API_URL + "/api/quiz/questions", {
+        const res = await axios.get(`${API_BASE_URL}/api/quiz/questions`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setQuizQuestions(res.data);
@@ -356,7 +357,7 @@ const Dashboard = () => {
       try {
         setLoadingQuiz(true);
         const res = await axios.post(
-  import.meta.env.VITE_API_URL + "/api/quiz/submit",
+          `${API_BASE_URL}/api/quiz/submit`,
           { answers: quizAnswers },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -619,8 +620,7 @@ const Dashboard = () => {
   // YOUR ORIGINAL fetch functions - UPDATED to calculate status
   const fetchPollutionData = async () => {
     try {
-      const res = await axios.get(
-  import.meta.env.VITE_API_URL + "/api/pollution/my" ,{
+      const res = await axios.get(`${API_BASE_URL}/api/pollution/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = res.data.records || [];
@@ -637,8 +637,7 @@ const Dashboard = () => {
 
   const fetchLocationPLI = async () => {
     try {
-      const res = await axios.get(
-  import.meta.env.VITE_API_URL + "/api/quiz/leaderboard", {
+      const res = await axios.get(`${API_BASE_URL}/api/pollution/location-pli`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setLocationPLI(res.data || []);
@@ -649,8 +648,7 @@ const Dashboard = () => {
 
   const fetchQuizLeaderboard = async () => {
     try {
-      await axios.post(
-  import.meta.env.VITE_API_URL + "/api/pollution/add", {
+      const res = await axios.get(`${API_BASE_URL}/api/quiz/leaderboard`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setQuizLeaderboard(res.data || []);
@@ -679,13 +677,9 @@ const Dashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-  "https://heavy-metal-backend-ayush.onrender.com/api/pollution/add",
-  formData,
-  {
-    headers: { Authorization: `Bearer ${token}` }
-  }
-);
+      await axios.post(`${API_BASE_URL}/api/pollution/add`, formData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       alert("✅ Pollution data saved successfully");
       setFormData({ location: "", metal: "", concentration: "", permissibleLimit: "" });
       fetchPollutionData();

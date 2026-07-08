@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 const QuizResults = () => {
   const navigate = useNavigate();
@@ -46,12 +47,9 @@ const QuizResults = () => {
       }
 
       try {
-        const res = await axios.get(
-  "https://heavy-metal-indices-api.onrender.com/api/quiz/my-results",
-  {
-    headers: { Authorization: `Bearer ${token}` }
-  }
-);
+        const res = await axios.get(`${API_BASE_URL}/api/quiz/my-results`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
 
         if (res.data && res.data.length > 0) {
           setQuizResult(normalizeResult(res.data[0]));

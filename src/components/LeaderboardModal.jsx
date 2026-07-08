@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 const LeaderboardModal = ({ show, onClose, token }) => {
   const [board, setBoard] = useState([]);
@@ -7,11 +8,10 @@ const LeaderboardModal = ({ show, onClose, token }) => {
   useEffect(() => {
     if (show) {
       axios
-        .get("https://heavy-metal-backend-ayush.onrender.com/api/quiz/leaderboard", {
+        .get(`${API_BASE_URL}/api/quiz/leaderboard`, {
           headers: { Authorization: `Bearer ${token}` },
         })
-        .then((res) => setBoard(res.data))
-        .catch((err) => console.error(err));
+        .then((res) => setBoard(res.data));
     }
   }, [show, token]);
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,9 +28,9 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-  "https://heavy-metal-indices-api.onrender.com/api/auth/login",
-  payload
-);
+        `${API_BASE_URL}/api/auth/login`,
+        payload
+      );
 
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");

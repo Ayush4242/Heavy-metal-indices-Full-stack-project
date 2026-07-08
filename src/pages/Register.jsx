@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,13 +17,12 @@ const Register = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrorMsg(""); g
+    setErrorMsg("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
     if (formData.password.length < 6) {
       setErrorMsg("Password must be at least 6 characters");
       return;
@@ -32,9 +32,9 @@ const Register = () => {
       setLoading(true);
 
       await axios.post(
-  "https://heavy-metal-indices-api.onrender.com/api/auth/register",
-  formData
-);
+        `${API_BASE_URL}/api/auth/register`,
+        formData
+      );
 
       alert("Registration successful");
       navigate("/login");

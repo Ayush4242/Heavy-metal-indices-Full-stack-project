@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -332,12 +333,9 @@ const Dashboard = () => {
     const loadQuizQuestions = async () => {
       try {
         setLoadingQuiz(true);
-const res = await axios.get(
-  "https://your-backend-name.onrender.com/api/quiz/questions",
-  {
-    headers: { Authorization: `Bearer ${token}` }
-  }
-);
+        const res = await axios.get(`${API_BASE_URL}/api/quiz/questions`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         setQuizQuestions(res.data);
         setQuizAnswers(new Array(res.data.length).fill(""));
       } catch (err) {
@@ -359,10 +357,10 @@ const res = await axios.get(
       try {
         setLoadingQuiz(true);
         const res = await axios.post(
-  "https://heavy-metal-backend-ayush.onrender.com/api/quiz/submit",
-  { answers: quizAnswers },
-  { headers: { Authorization: `Bearer ${token}` } }
-);
+          `${API_BASE_URL}/api/quiz/submit`,
+          { answers: quizAnswers },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         const result = res.data.result;
         const percentage = Number(result.percentage);
         const date = result.date || result.createdAt;
@@ -622,12 +620,9 @@ const res = await axios.get(
   // YOUR ORIGINAL fetch functions - UPDATED to calculate status
   const fetchPollutionData = async () => {
     try {
-      const res = await axios.get(
-  "https://heavy-metal-backend-ayush.onrender.com/api/pollution/my",
-  {
-    headers: { Authorization: `Bearer ${token}` },
-  }
-);
+      const res = await axios.get(`${API_BASE_URL}/api/pollution/my`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const data = res.data.records || [];
       setPollutionData(data);
       setPredictions(res.data.predictions || {});
@@ -642,12 +637,9 @@ const res = await axios.get(
 
   const fetchLocationPLI = async () => {
     try {
-      const res = await axios.get(
-  "https://heavy-metal-indices-api.onrender.com/api/pollution/location-pli",
-  {
-    headers: { Authorization: `Bearer ${token}` }
-  }
-);
+      const res = await axios.get(`${API_BASE_URL}/api/pollution/location-pli`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setLocationPLI(res.data || []);
     } catch (error) {
       console.error("Location PLI fetch failed", error);
@@ -656,12 +648,9 @@ const res = await axios.get(
 
   const fetchQuizLeaderboard = async () => {
     try {
-      const res = await axios.get(
-  "https://heavy-metal-backend-ayush.onrender.com/api/quiz/leaderboard",
-  {
-    headers: { Authorization: `Bearer ${token}` }
-  }
-);
+      const res = await axios.get(`${API_BASE_URL}/api/quiz/leaderboard`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setQuizLeaderboard(res.data || []);
     } catch (error) {
       console.error("Failed to fetch leaderboard");
@@ -688,13 +677,9 @@ const res = await axios.get(
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-  "https://heavy-metal-backend-ayush.onrender.com/api/pollution/add",
-  formData,
-  {
-    headers: { Authorization: `Bearer ${token}` }
-  }
-);
+      await axios.post(`${API_BASE_URL}/api/pollution/add`, formData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       alert("✅ Pollution data saved successfully");
       setFormData({ location: "", metal: "", concentration: "", permissibleLimit: "" });
       fetchPollutionData();
